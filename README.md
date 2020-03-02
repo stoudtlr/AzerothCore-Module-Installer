@@ -1,5 +1,5 @@
 # Description
-Script searches the AzerothCore repository for all available modules and clones the ones that you select.
+Get-AZCoreModules.ps1 searches the AzerothCore repository for all available modules and clones the ones that you select.
 
 Note: If the eluna lua mod is one of the selected modules the script automatically downloads the additional eluna engine dependency.  No need to download separately
 
