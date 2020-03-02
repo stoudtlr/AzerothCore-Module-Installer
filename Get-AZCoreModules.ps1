@@ -74,16 +74,25 @@ $checklist.Size = New-Object System.Drawing.Size(620,250)
 $checklist.CheckOnClick = $true
 $checklist.MultiColumn = $true
 
-# Get Mods and add to Checkboxes
+# Get Available Modules
 $uri = New-Object System.UriBuilder -ArgumentList 'https://api.github.com/search/repositories?q=topic%3Acore-module+fork%3Atrue+org%3Aazerothcore&type=Repositories&per_page=100'
 $baseuri = $uri.uri
 $acmods = Invoke-RestMethod -Method Get -Uri $baseuri
 $acmodslist = $acmods.items | Select-Object -Property name, clone_url | Sort-Object Name
 
+# Add modules to checkboxlist with any already present defaulted to checked
+$CurrentModules = Get-ChildItem -Path "$BaseLocation\Modules" -Filter "mod*" | Select-Object -Property Name
+$modnumber = 0
 foreach ($acmod in $acmodslist) {
     if ($acmod.name -like "mod*") {
         $modsName = ($acmod.name).remove(0,4)
         $checklist.Items.Add($modsName) | Out-Null
+        foreach ($CurrentModule in $CurrentModules) {
+            if (($CurrentModule.Name).remove(0,4) -eq $modsName) {
+                $checklist.SetItemChecked($modnumber,$true)
+            }
+        }
+        $modnumber ++
     }
 }
 
