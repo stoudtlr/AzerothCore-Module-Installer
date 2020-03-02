@@ -13,7 +13,8 @@ Note: If the eluna lua mod is one of the selected modules the script automatical
 ## **Running the script:**
 1. Navigate to the location you saved the script and double-click to run it
 2. Script searches Github and displays a popup of all available modules
-3. Check the boxes for the modules that you want:
+3. Check the boxes for the modules that you want
+NOTE: Any modules already present in your modules folder will be checked by default
 ![Imgur](https://i.imgur.com/kXeNNhK.png)
 4. Sit back and wait.  Powershell will return to the prompt once finished
 5. You can verify modules were downloaded by looking at your modules folder:
