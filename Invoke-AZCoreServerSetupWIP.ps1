@@ -275,12 +275,12 @@ Function Get-AZModule {
 [void] [System.Reflection.Assembly]::LoadWithPartialName("System.Windows.Forms")
 
 $Form = New-Object System.Windows.Forms.Form
-$Form.Size = New-Object System.Drawing.Size(600,270)
+$Form.Size = New-Object System.Drawing.Size(700,380)
 $Form.text ="Choose desired AzerothCore modules"
 $Form.StartPosition = 'CenterScreen'
 
 $OKButton = New-Object System.Windows.Forms.Button
-$OKButton.Location = New-Object System.Drawing.Point(420,200)
+$OKButton.Location = New-Object System.Drawing.Point(520,310)
 $OKButton.Size = New-Object System.Drawing.Size(75,23)
 $OKButton.Text = 'OK'
 $OKButton.DialogResult = [System.Windows.Forms.DialogResult]::OK
@@ -288,7 +288,7 @@ $Form.AcceptButton = $OKButton
 $Form.Controls.Add($OKButton)
 
 $cancelButton = New-Object System.Windows.Forms.Button
-$cancelButton.Location = New-Object System.Drawing.Point(500,200)
+$cancelButton.Location = New-Object System.Drawing.Point(600,310)
 $cancelButton.Size = New-Object System.Drawing.Size(75,23)
 $cancelButton.Text = 'Cancel'
 $cancelButton.DialogResult = [System.Windows.Forms.DialogResult]::Cancel
@@ -299,13 +299,13 @@ $Form.Controls.Add($cancelButton)
 $groupBox = New-Object System.Windows.Forms.GroupBox
 $groupBox.Location = New-Object System.Drawing.Size(20,20)
 $groupBox.text = "Availabe Modules:"
-$groupBox.size = New-Object System.Drawing.Size(540,175)
+$groupBox.size = New-Object System.Drawing.Size(660,275)
 $Form.Controls.Add($groupBox)
 
 # Create check boxes
 $checklist = New-Object System.Windows.Forms.CheckedListBox
 $checklist.Location = New-Object System.Drawing.Size(20,20)
-$checklist.Size = New-Object System.Drawing.Size(500,150)
+$checklist.Size = New-Object System.Drawing.Size(620,250)
 $checklist.CheckOnClick = $true
 $checklist.MultiColumn = $true
 
