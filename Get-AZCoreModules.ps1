@@ -108,6 +108,16 @@ $groupBox.Controls.Add($checklist)
 $OKButton.Add_Click({
     $Script:Cancel=$false
     $Form.Hide()
+    $CurrentModules = Get-ChildItem -Path (Join-Path $BaseLocation "Modules") -Filter "mod*" | Select-Object -Property Name
+    $Searchlist = $CurrentModules.name
+    $CheckedItems = $checklist.checkeditems
+    foreach ($item in $Searchlist) {
+        $itemname = $item.remove(0,4)
+        if ($CheckedItems -notcontains $itemname) {
+            Write-Information -MessageData "$item no longer checked. removing" -InformationAction Continue
+            Remove-Item (Join-Path $BaseLocation "Modules\$item") -Recurse -Force
+        }
+    }
     foreach ($mod in $checklist.CheckedItems) {
         foreach ($acmod in $acmodslist) {
             if ($acmod.name -like "*$mod") {
@@ -118,7 +128,15 @@ $OKButton.Add_Click({
         }
         if ($mod -eq "eluna-lua-engine") {
             Write-Progress -Activity "Downloading Modules" -Status "Installing LUA Engine"
-            Get-AZModule -AZmodPath "$BaseLocation\modules\mod-eluna-lua-engine\LuaEngine" -AZmodURL "https://github.com/ElunaLuaEngine/Eluna.git"
+            try {
+                Set-Location (Join-Path $BaseLocation "modules\mod-eluna-lua-engine")
+                git submodule update --init
+                if (-not $?) {
+                    throw "git error! failed to update $AZmodname"
+                }
+            } Catch {
+                throw
+            }
         }
     }
     $Form.Close()
